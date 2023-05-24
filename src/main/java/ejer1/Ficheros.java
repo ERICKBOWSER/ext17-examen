@@ -109,68 +109,7 @@ public class Ficheros {
         return lista;
     }
     
-    public static List<CalcularHoras> leerHoras(String nombre){
-        // Fichero a leer con datos de ejemplo
-        String idFichero = nombre;
-
-        // Variables para guardar los datos que se van leyendo
-        String[] tokens;
-        String[] tokensHrs;
-        
-        String linea;
-        
-        List<CalcularHoras> lista = new ArrayList();
-
-        System.out.println("Leyendo el fichero: " + idFichero);
-
-        // Inicialización del flujo "datosFichero" en función del archivo llamado "idFichero"
-        // Estructura try-with-resources. Permite cerrar los recursos una vez finalizadas
-        // las operaciones con el archivo
-        try (Scanner datosFichero = new Scanner(new File(idFichero), "ISO_8859_1")) {
-            // hasNextLine devuelve true mientras haya líneas por leer
-            int contador = 0;
-            while (datosFichero.hasNextLine()) {
-                // Guarda la línea completa en un String
-                linea = datosFichero.nextLine();
-                // Se guarda en el array de String cada elemento de la
-                // línea en función del carácter separador de campos del fichero CSV
-                tokens = linea.split("\\s*\\|");
-                
-                
-                CalcularHoras horas = new CalcularHoras();
-                
-                //for(String token : tokens){
-                if(contador > 8){
-                    tokensHrs = linea.split("\\s*\\|[0-9]{2,3}:[0-9]{2}");
-                    
-                    //horas.setDni(tokens[0]);
-                    
-                    horas.setHoras(Integer.parseInt(tokensHrs[0]));
-                    horas.setMinutos(Integer.parseInt(tokensHrs[1]));
-                    
-                    lista.add(horas);
-                
-                }else{
-                    contador++;
-                }
-                //}
-                
-//                for (String string : tokensHrs) {
-//                    if(contador > 10){
-//                        System.out.print(string + "\t");
-//                    }else{
-//                        contador++;
-//                    }
-//                }
-                System.out.println();
-            }
-            
-            
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-        return lista;
-    }
+   
     
     
     

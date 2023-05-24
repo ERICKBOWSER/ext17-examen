@@ -22,8 +22,8 @@ public class Trabajadores {
     private boolean horarioPerso;
     private LocalDate fechaAlta;
     private LocalDate fechaBaja;
-    private LocalTime horasIniciales;
-    private LocalTime totalHoras;
+    private String horasIniciales;
+    private String totalHoras;
     private boolean activo;
 
     public Trabajadores() {
@@ -85,19 +85,19 @@ public class Trabajadores {
         this.fechaBaja = fechaBaja;
     }
 
-    public LocalTime getHorasIniciales() {
+    public String getHorasIniciales() {
         return horasIniciales;
     }
 
-    public void setHorasIniciales(LocalTime horasIniciales) {
+    public void setHorasIniciales(String horasIniciales) {
         this.horasIniciales = horasIniciales;
     }
 
-    public LocalTime getTotalHoras() {
+    public String getTotalHoras() {
         return totalHoras;
     }
 
-    public void setTotalHoras(LocalTime totalHoras) {
+    public void setTotalHoras(String totalHoras) {
         this.totalHoras = totalHoras;
     }
 
@@ -134,6 +134,7 @@ public class Trabajadores {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append(apellidos).append("; ");
         sb.append(nombre).append("; ");
         sb.append(dni).append(";    ");
         sb.append(tipoPersonal).append(";   ");

@@ -7,7 +7,6 @@ package ejer3;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.Scanner;
  * @author ERICK
  */
 public class Ficheros {
-    public static void leer(String nombre){
+    public static List<Trabajadores> leer(String nombre){
         // Fichero a leer con datos de ejemplo
         String idFichero = nombre;
 
@@ -59,7 +58,7 @@ public class Ficheros {
                 
                 Trabajadores trabajador = new Trabajadores();
                 
-                for(String token : tokens){
+                if(contador > 1){
                     trabajador.setApellidos(tokens[0]);
                     trabajador.setNombre(tokens[1]);
                     trabajador.setDni(tokens[2]);
@@ -71,29 +70,38 @@ public class Ficheros {
                         trabajador.setHorarioPerso(false);
                     }
                     
-                    DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Formato para la fecha
-                    LocalDate fecha1 = LocalDate.parse(tokens[6], formato1);
+                    if(tokens[6].equals("")){
+                        trabajador.setFechaAlta(null);
+                    }else{
+                        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Formato para la fecha
+                        LocalDate fecha1 = LocalDate.parse(tokens[6], formato);
 
-                    trabajador.setFechaAlta(fecha1);
+                        trabajador.setFechaAlta(fecha1);
+                    }
                     
                     //trabajador.setFechaAlta(LocalDate.parse(tokens[5]));
-                    if(tokens[7].equalsIgnoreCase("")){
+                    if(tokens[7].equals("")){
                         trabajador.setFechaBaja(null);
                     }else{
-                        DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Formato para la fecha
-                        LocalDate fecha2 = LocalDate.parse(tokens[7], formato2);
+                        
+                        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Formato para la fecha
+                        LocalDate fecha2 = LocalDate.parse(tokens[7], formato);
 
                         trabajador.setFechaBaja(fecha2);
                     }
                     
                     //trabajador.setFechaBaja(LocalDate.parse(tokens[6]));
                     
-                    DateTimeFormatter formato3 = DateTimeFormatter.ofPattern("H:m"); // Formato para la fecha
+//                    DateTimeFormatter formato3 = DateTimeFormatter.ofPattern("H:m"); // Formato para la fecha
+//
+//                    
+//                    trabajador.setHorasIniciales(LocalTime.parse(tokens[8], formato3));
+//                                        
+//                    trabajador.setTotalHoras(LocalTime.parse(tokens[9], formato3));
 
+                    trabajador.setHorasIniciales(tokens[8]);
+                    trabajador.setTotalHoras(tokens[9]);
                     
-                    trabajador.setHorasIniciales(LocalTime.parse(tokens[8], formato3));
-                                        
-                    trabajador.setTotalHoras(LocalTime.parse(tokens[9], formato3));
                     if(tokens[10].equalsIgnoreCase("S")){
                         trabajador.setActivo(true);
                     }else{
@@ -101,23 +109,22 @@ public class Ficheros {
                     }
 
                     lista.add(trabajador);
-                
+                }else{
+                    contador++;
                 }
+
+                contador++;
                 
-                for (String string : tokens) {
-                    if(contador > 10){
-                        System.out.print(string + "\t");
-                    }else{
-                        contador++;
-                    }
-                }
-                System.out.println();
+//                for (String string : tokens) {
+//                        System.out.print(string + "\t");
+//                }
+//                System.out.println();
             }
             
             
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
-//        return lista;
+        return lista;
     }
 }
